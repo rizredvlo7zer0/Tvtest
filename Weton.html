@@ -1,0 +1,96 @@
+<html>
+<head>
+  <title>
+    Weton Menurut Tanggal Lahir
+  </title>
+  <style>
+  body {
+    background-color:#f1f1f1;
+    font-family: sans-serif;
+    text-align: center;
+  }
+  h1{
+    color:#5f7783;
+    font-weight: bold;
+  }
+
+  input{
+    padding: 20px 10px;
+    font-size: .9em;
+    border: none;
+    background-color:#f5f7fa;
+    border-radius: 19px;
+    margin: 0 0 20px;
+    
+  }
+
+  input[type="submit"]{
+    padding: 10px;
+    background-color:#49a2cc;
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    color: #5f7783;
+  }
+
+  </style>
+</head>
+<body>
+  <h1>Weton Menurut Tanggal Lahir</h1>
+  <div>
+    <form>
+      <label>Masukkan Tanggal Lahir (1-31):</label>
+      <input type="number" name="tanggalLahir" min="1" max="31" placeholder="Tanggal Lahir"/>
+      <br/>
+      <label>Masukkan Bulan Lahir (1-12):</label>
+      <input type="number" name="bulanLahir" min="1" max="12" placeholder="Bulan Lahir"/>
+      <br/>
+      <input type="submit" value="Hitung Weton" />
+    </form>
+  </div>
+  <script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const tanggalLahir = form.querySelector('input[name="tanggalLahir"]').value;
+      const bulanLahir = form.querySelector('input[name="bulanLahir"]').value;
+
+      let weton = '';
+
+      // Rumus untuk menghitung weton
+      const tgl = parseInt(tanggalLahir);
+      const bln = parseInt(bulanLahir);
+      const jml = tgl + bln;
+
+      switch (jml % 5) {
+        case 0:
+          weton = 'Legi';
+          break;
+        case 1:
+          weton = 'Pahing';
+          break;
+        case 2:
+          weton = 'Pon';
+          break;
+        case 3:
+          weton = 'Wage';
+          break;
+        case 4:
+          weton = 'Kliwon';
+          break;
+        default:
+          weton = 'Tidak valid';
+      }
+
+      // Output di halaman web
+      const output = document.createElement('h2');
+      output.innerText = `Weton anda adalah ${weton}`;
+      document.querySelector('body').append(output);
+    });
+  </script>
+</body>
+  </html>
