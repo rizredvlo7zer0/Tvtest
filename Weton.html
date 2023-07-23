@@ -49,6 +49,9 @@
       <label>Masukkan Bulan Lahir (1-12):</label>
       <input type="number" name="bulanLahir" min="1" max="12" placeholder="Bulan Lahir"/>
       <br/>
+        <label>Masukkan Tahun Lahir (contoh: 1999):</label>
+      <input type="number" name="tahunLahir" min="1" max="12" placeholder="Tahun Lahir"/>
+      <br/>
       <input type="submit" value="Hitung Weton" />
     </form>
   </div>
@@ -58,14 +61,16 @@
       e.preventDefault();
       const tanggalLahir = form.querySelector('input[name="tanggalLahir"]').value;
       const bulanLahir = form.querySelector('input[name="bulanLahir"]').value;
-
+      const tahunLahir = form.querySelector('input[name="tahunLahir"]').value;
+ 
       let weton = '';
-
+ 
       // Rumus untuk menghitung weton
       const tgl = parseInt(tanggalLahir);
       const bln = parseInt(bulanLahir);
-      const jml = tgl + bln;
-
+      const thn = parseInt(tahunLahir);
+      const jml = tgl + bln + thn;
+ 
       switch (jml % 5) {
         case 0:
           weton = 'Legi';
@@ -85,7 +90,7 @@
         default:
           weton = 'Tidak valid';
       }
-
+ 
       // Output di halaman web
       const output = document.createElement('h2');
       output.innerText = `Weton anda adalah ${weton}`;
@@ -93,4 +98,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
