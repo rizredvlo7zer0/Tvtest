@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Particle Background</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: sans-serif;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var particleAmount = 200;
+        var particles = [];
+
+        var ww = canvas.width = window.innerWidth;
+        var wh = canvas.height = window.innerHeight;
+
+        function particle() {
+            this.x = Math.random() * ww;
+            this.y = Math.random() * wh;
+            this.dest = {
+                x: Math.random() * ww,
+                y: Math.random() * wh
+            };
+            this.r = Math.random() * 5 + 2;
+            this.vx = (Math.random() - 0.5) * 20;
+            this.vy = (Math.random() - 0.5) * 20;
+            this.accX = 0;
+            this.accY = 0;
+            this.friction = Math.random() * 0.05 + 0.94;
+
+            this.color = "red";
+        }
+
+        particle.prototype.render = function() {
+            this.accX = (this.dest.x - this.x) / 1000;
+            this.accY = (this.dest.y - this.y) / 1000;
+            this.vx += this.accX;
+            this.vy += this.accY;
+            this.vx *= this.friction;
+            this.vy *= this.friction;
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
+            ctx.fill();
+
+            var a = this.x - mouse.x;
+            var b = this.y - mouse.y;
+
+            var distance = Math.sqrt(a * a + b * b);
+            if (distance < (radius * 70)) {
+                this.accX = (this.x - mouse.x) / 100;
+                this.accY = (this.y - mouse.y) / 100;
+                this.vx += this.accX;
+                this.vy += this.accY;
+            }
+        }
+
+        function createParticles() {
+            for (var i = particleAmount; i--;) {
+                particles.push(new particle());
+            }
+        }
+
+        function renderParticles() {
+            for (var i = particleAmount; i--;) {
+                particles[i].render();
+            }
+        }
+
+        var mouse = {
+            x: 0,
+            y: 0
+        };
+        var radius = 1;
+
+        window.addEventListener("mousemove", function(e) {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        createParticles();
+        requestAnimationFrame(render);
+
+        function render() {
+            ctx.clearRect(0, 0, ww, wh);
+            renderParticles();
+            requestAnimationFrame(render);
+        }
+    </script>
+</body>
+</html>
