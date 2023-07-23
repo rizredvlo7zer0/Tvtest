@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Promosi Sepatu Kami</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Sepatu Promosi</h1>
+    <h2>Pada tawaran harga ketika ini</h2>
+  </header>
+  <h3>Silahkan pilih!</h3>
+  <p>Pilihan kami sepatu adalah warna hitam, coklat, ungu, dan kuning</p>
+  <div>
+    <img src="https://icon-library.com/images/guest-icon-png/guest-icon-png-3.jpg" id="black" onclick="getInfo(this.id);" width="50">
+    <img src="https://icon-library.com/images/guest-icon-png/guest-icon-png-3.jpg" id="brown" onclick="getInfo(this.id);" width="50">
+    <img src="https://icon-library.com/images/guest-icon-png/guest-icon-png-3.jpg" id="purple" onclick="getInfo(this.id);" width="50">
+    <img src="https://icon-library.com/images/guest-icon-png/guest-icon-png-3.jpg" id="yellow" onclick="getInfo(this.id);" width="50">
+  </div>
+  <div class="info">
+    <p>Klik salah satu warna untuk melihat detailnya.</p>
+  </div>
+  <div class="cart">
+    <h3> </h3>
+    <div class="shoes">
+    </div>
+  </div>
+
+  <script>
+    let info = document.querySelector('.info');
+    let shoes = document.querySelector('.shoes');
+
+    function getInfo(id){
+      switch(id) {
+        case "black":
+        info.innerHTML = "<h2>Sepatu Hitam</h2><p>Sepatu kami yang menakjubkan ini adalah pilihan yang sempurna untuk semua jenis aktivitas harian. Warna hitam yang tampak menawan ini dapat dengan mudah dipadukan dengan gaya Anda.</p>";
+        break;
+        case "brown":
+        info.innerHTML = "<h2>Sepatu Coklat</h2><p>Sepatu ini menampilkan sentuhan warna coklat tradisional untuk gaya yang lebih grundy. Tampilkan gaya klasik Anda bersama sepatu ini.</p>";
+        break;
+        case "purple":
+        info.innerHTML = "<h2>Sepatu Ungu</h2><p>Sepatu ungu yang modern ini mengesankan bahwa Anda memiliki koleksi terkini. Ini cocok untuk semua jenis aktivitas Anda di tempat kerja dan hiburan.</p>";
+        break;
+        case "yellow":
+        info.innerHTML = "<h2>Sepatu Kuning</h2><p>Pilihan warna cerah khas ini menonjol sekali. Dapat dipasang dengan gaya, atau menonjol sebagai potongan pakaian standar Anda.</p>";
+        break;
+      }
+    }
+
+    function addShoe(){
+      let img = document.createElement('img');
+      let id = event.target.id;
+      img.src = `images/${id}.jpg`;
+      shoes.appendChild(img);
+    }
+
+    let colors = document.querySelectorAll('img');
+    colors.forEach(color => color.addEventListener('click',addShoe));
+
+  </script>
+</body>
+</html>
