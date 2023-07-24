@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dekripsi Base64</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Dekripsi Base64</h1>
+    <textarea id="input" placeholder="Masukkan teks yang akan didekripsi"></textarea>
+    <button onclick="decrypt()">Dekripsi</button>
+    <textarea id="output" placeholder="Hasil dekripsi"></textarea>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style>
+body {
+    background-color: #f2f2f2;
+    text-align: center;
+    padding-top: 50px;
+}
+
+h1 {
+    color: #333;
+}
+
+textarea {
+    width: 80%;
+    height: 200px;
+    margin: 20px auto;
+    display: block;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+</style>
+
+<script>
+function decrypt() {
+    var input = document.getElementById("input").value;
+    var output = document.getElementById("output");
+    
+    // Menggunakan fungsi atob() untuk dekripsi base64
+    var decryptedText = atob(input);
+    
+    output.value = decryptedText;
+}
+</script>
