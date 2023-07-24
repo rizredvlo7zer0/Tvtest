@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enkripsi dan Dekripsi Base64</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <label for="plaintext">Plaintext:</label>
+        <textarea id="plaintext" name="plaintext"></textarea><br>
+
+        <button onclick="encode()">Enkripsi</button>
+        <button onclick="decode()">Dekripsi</button><br><br>
+
+        <label for="ciphertext">Ciphertext:</label>
+        <textarea id="ciphertext" name="ciphertext"></textarea>
+    </div>
+
+    <script>
+        function encode() {
+            var plaintext = document.getElementById("plaintext").value;
+            var encoded = btoa(plaintext);
+            document.getElementById("ciphertext").value = encoded;
+        }
+
+        function decode() {
+            var encoded = document.getElementById("ciphertext").value;
+            var decoded = atob(encoded);
+            document.getElementById("plaintext").value = decoded;
+        }
+    </script>
+</body>
+</html>
