@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TV Online</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Cek Iptv online</h1>
+        <div id="tvContainer">
+            <video id="tv" controls autoplay></video>
+        </div>
+        <form id="iptvForm">
+            <input type="text" id="urlInput" placeholder="Masukkan URL IPTV" required><br><br>
+            <button type="submit">Play</button>
+        </form>
+    </div>
+</body>
+</html>
+
+<style>
+body {
+    background-color: #191919;
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+input[type="text"] {
+    width: 95%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff4081;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+#tvContainer {
+    margin-top: 50px;
+    display: none;
+}
+
+#tv {
+    max-width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+</style>
+
+<script>
+const iptvForm = document.getElementById('iptvForm');
+const urlInput = document.getElementById('urlInput');
+const tvContainer = document.getElementById('tvContainer');
+const tv = document.getElementById('tv');
+
+iptvForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const url = urlInput.value;
+    if(url) {
+        tv.setAttribute('src', url);
+        tvContainer.style.display = 'block';
+        iptvForm.style.display = '';
+    } else {
+        alert('URL IPTV tidak valid');
+    }
+    
+    tv.load();
+    tv.play();
+});
+</script>
