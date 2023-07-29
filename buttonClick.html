@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Click Counter</title>
+    <script>
+        var clickCount = 0;
+
+        function buttonClick() {
+            clickCount++;
+            document.getElementById('counter').innerHTML = 'Tombol telah diklik ' + clickCount + ' kali';
+        }
+    </script>
+</head>
+<body>
+    <button onclick="buttonClick()">Klik Saya</button>
+    <p id="counter">Tombol belum diklik</p>
+</body>
+</html>
