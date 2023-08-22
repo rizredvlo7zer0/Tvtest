@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js/dist/video-js.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/video.js/dist/video.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="tvContainer">
+            <video id="tv" style="width: 100%; height: ; margin: 0px;" class="video-js vjs-default-skin" controls autoplay></video>
+        <div class="select" style="width: 100%;">
+        <select id="tvPlaylist" onchange="changeChannel()">
+            <option value="http://118.97.50.107/Content/HLS/Live/Channel(TVRIYOGYAKARTA)/index.m3u8">📺 TVRI 1</option>
+            <option value="http://118.97.50.107/Content/HLS/Live/Channel(TVRI4)/index.m3u8">📺 TVRI SPORT</option>
+            <option value="https://dacastmmd.mmdlive.lldns.net/dacastmmd/683cc426c19442a4ba31c53be5c963bb/index.m3u8">📺 DAAI TV</option>
+            <option value="https://inspiratv.siar.us/inspiratv/live/playlist.m3u8">📺 INSPIRA TV</option>
+        </select>
+    </div>
+    <p>New version 1.0 tv online</p>
+</body>
+</html>
+
+<style>
+body {
+      margin: 0px;
+}
+</style>
+<style>
+/* Mengatur body dalam potret skala */
+@media screen and (orientation: portrait) {
+  body {
+    transform: scale(2.0); /* mengatur skala */
+    transform-origin: center top; /* mengatur titik asal transformasi */
+    margin: 0 auto; /* mengatur margin */
+    padding: 0px; /* mengatur padding */
+  }
+}
+:root {
+  --background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
+  --gray: #34495e;
+  --darkgray: #2c3e50;
+}
+
+select {
+  /* Reset Select */
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  outline: 0;
+  border: 0;
+  box-shadow: none;
+  /* Personalize */
+  flex: 1;
+  padding: 0 1em;
+  color: #fff;
+  font-size: 20px;
+  background-color: var(--darkgray);
+  background-image: none;
+  cursor: none;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select wrapper */
+.select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  border-radius: .25em;
+  overflow: hidden;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  background-color: #34495e;
+  transition: .25s all ease;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #*f39c12;
+}
+
+/* Other styles*/
+body {
+  color: #fff;
+  background: var(--background-gradient);
+}
+h1 {
+  margin: 0 0 0.25em;
+}
+a {
+  font-weight: bold;
+  color: var(--gray);
+  text-decoration: none;
+  padding: .25em;
+  border-radius: .25em;
+  background: white;
+}
+</style>
+
+<script>
+let player = videojs('tv');
+
+function changeChannel() {
+    let selectedChannel = document.getElementById('tvPlaylist').value;
+    player.src({
+        src: selectedChannel,
+        type: 'application/x-mpegURL'
+    });
+}
+
+changeChannel();
+</script>
