@@ -1,8 +1,5 @@
 # Tvtest
 Zzz
+Tv_Online : https://raw.githack.com/rizredvlo7zer0/Tvtest/main/tvfixx.html
 
-Home2 : https://raw.githack.com/rizredvlo7zer0/Tvtest/main/Home2.html
-
-tv fixx : https://raw.githack.com/rizredvlo7zer0/Tvtest/main/tvfixx.html
-
-Test_file : https://raw.githack.com/rizredvlo7zer0/Tvtest/main/Test_file.html
+Test_File : https://raw.githack.com/rizredvlo7zer0/Tvtest/main/Test_file.html
