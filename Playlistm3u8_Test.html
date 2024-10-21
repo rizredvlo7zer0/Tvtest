@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Playlist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        form#vid {
+            margin-top: 210px;
+        }
+        
+        video {
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            z-index: 1000;
+            background: black;
+        }
+        .playlist {
+            list-style-type: none;
+            padding: 0;
+            word-wrap: break-word; 
+        }
+        .playlist li {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+        }
+        .playlist li:hover {
+            background-color: #e1e1e1;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<video id="videoPlayer" controls>
+        <source id="videoSource" src="" type="application/x-mpegURL">
+        Your browser does not support the video tag.
+    </video>
+
+    <form id="vid">
+    <h1>Video Playlist</h1>
+
+    <!-- Input URL untuk menambahkan secara manual -->
+    <input type="text" id="urlInput" placeholder="Masukkan URL video m3u8...">
+    <button id="addUrlButton">Tambahkan URL ke Playlist</button>
+
+    <!-- Form input untuk format M3U -->
+    <textarea id="m3uInput" placeholder="Masukkan format M3U di sini..."></textarea>
+    <button id="loadPlaylist">Load Playlist</button>
+    
+    <ul class="playlist" id="playlist">
+        <!-- Playlist akan ditambahkan di sini secara dinamis -->
+    </ul>
+    </form>
+
+    <script>
+        const videoPlayer = document.getElementById('videoPlayer');
+        const videoSource = document.getElementById('videoSource');
+        const playlist = document.getElementById('playlist');
+        const m3uInput = document.getElementById('m3uInput');
+        const loadPlaylistButton = document.getElementById('loadPlaylist');
+        const urlInput = document.getElementById('urlInput');
+        const addUrlButton = document.getElementById('addUrlButton');
+
+        // Fungsi untuk memuat playlist dari input M3U
+        function loadPlaylistFromM3U(m3uText) {
+            const lines = m3uText.split('\n');
+            playlist.innerHTML = ''; // Kosongkan playlist sebelumnya
+
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('#EXTINF')) {
+                    // Ambil informasi dari EXTINF
+                    const extinfLine = lines[i];
+                    const urlLine = lines[i + 1].trim(); // URL ada di baris setelah EXTINF
+                    const titleMatch = extinfLine.match(/,(.+)$/);
+                    const logoMatch = extinfLine.match(/tvg-logo="(.+?)"/);
+
+                    const title = titleMatch ? titleMatch[1] : 'Unknown Title';
+                    const logo = logoMatch ? logoMatch[1] : '';
+
+                    // Tambahkan item ke playlist
+                    const li = document.createElement('li');
+                    li.setAttribute('data-src', urlLine);
+                    li.textContent = title;
+                    playlist.appendChild(li);
+                }
+            }
+        }
+
+        // Fungsi untuk menambahkan URL secara manual
+        function addUrlToPlaylist(url) {
+            if (url.trim() !== '') {
+                const li = document.createElement('li');
+                li.setAttribute('data-src', url);
+                li.textContent = `Manual Video (${url})`; // Nama default untuk video manual
+                playlist.appendChild(li);
+            }
+        }
+
+        // Event listener untuk klik pada playlist
+        playlist.addEventListener('click', (event) => {
+            const target = event.target;
+
+            if (target.tagName === 'LI') {
+                const src = target.getAttribute('data-src');
+                videoSource.src = src;
+                videoPlayer.load();
+                videoPlayer.play();
+            }
+        });
+
+        // Event listener untuk tombol Load Playlist
+        loadPlaylistButton.addEventListener('click', (event) => {
+            event.preventDefault();  // Mencegah refresh halaman
+            const m3uText = m3uInput.value;
+            loadPlaylistFromM3U(m3uText);
+        });
+
+        // Event listener untuk tombol Tambah URL
+        addUrlButton.addEventListener('click', (event) => {
+            event.preventDefault();  // Mencegah refresh halaman
+            const url = urlInput.value;
+            addUrlToPlaylist(url);
+            urlInput.value = ''; // Kosongkan input setelah ditambahkan
+        });
+    </script>
+
+</body>
+</html>
