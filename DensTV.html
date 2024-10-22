@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DENS TV</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0px;
+}
+video {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 1000;
+    background: black;
+}
+.grid {
+  display: grid;
+  padding: 10px;
+  margin-top: 235px;
+  grid-template-columns: repeat(3, 1fr); /* Membuat tiga kolom dengan ukuran sama */
+  gap: 16px; /* Mengatur jarak antar elemen grid */
+}
+
+.grid button {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  cursor: none;
+  color: #555;
+}
+
+.grid button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+    var video;
+    var hls;
+        
+    function updatePlayer(channelId) {
+    console.log("Selected Channel: " + channelId);
+    video = document.getElementById("videoPlayer");
+
+    // Hentikan video yang sedang diputar sebelum memuat yang baru
+    video.pause();
+    video.src = '';  // Hapus sumber video sebelumnya
+
+    if (hls) {
+        hls.destroy();
+    }
+
+    if (channelId) {
+        var m3u8Url = "https://op-group1-swiftservehd-1.dens.tv/h/h" + channelId + "/01.m3u8";
+        if (Hls.isSupported()) {
+            hls = new Hls();
+            hls.loadSource(m3u8Url);
+            hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = m3u8Url;
+        }
+
+        // Gunakan event untuk memutar setelah video dimuat
+        video.addEventListener('canplay', function() {
+            video.play().catch(function(error) {
+                console.log("Error playing video:", error);
+            });
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const channelGrid = document.getElementById('channelGrid');
+    for (let i = 201; i <= 250; i++) {
+        const button = document.createElement('button');
+        button.innerText = `Channel ${i}`;
+        button.setAttribute('onclick', `updatePlayer(${i})`);
+        channelGrid.appendChild(button);
+    }
+});
+</script>
+</head>
+<body>
+
+    <video 
+        id="videoPlayer" 
+        controls 
+        allowfullscreen>
+        Your browser does not support the video tag.
+    </video>
+    
+    <div class="grid" id="channelGrid"></div>
+   
+</div>
+
+</body>
+</html>
